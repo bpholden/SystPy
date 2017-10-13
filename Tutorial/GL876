@@ -1,0 +1,9 @@
+Data {
+	RV[] "GL876_KECK.vels"
+        RV[] "GL876_HARPS09.vels"
+        RV[] "GL876_APF.vels"
+        RV[] "GL876_PFS.vels"
+}
+"GL876_noLICK" {
+ Mass 0.32
+}

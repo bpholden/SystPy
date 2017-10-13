@@ -1,0 +1,14 @@
+
+README -- SystPy Systemic Python Bindings
+
+Dependencies:
+
+numpy
+matplotlib ( For tutorial files only, not the main SystPy module )
+
+Tutorial:
+GL876_Fit.py - General outline for fitting a planetary system
+GL876_Integration.py - General outline for preforming orbital integrations
+GL876_Bootstrap.py - Generating error estimates for a planetary fit
+
+These files assume access to SystPy.py, this is most easily accomplished by add the directory containing SystPy to your pythonpath, but you can also copy the SystPy files (defs.py, constants.py, SystPy.py) to the tutorials folder.
