@@ -7,7 +7,7 @@ from constants import *
 
 lib = None
 
-libpaths = [ '/Users/holden/Applications/mac/Systemic/libsystemic.dylib', '/Users/jaburt/Dropbox/Research/Systemic/libsystemic.dylib', '/Users/bradholden/Dropbox/APF_TESS/SystPy/libsystemic.dylib']
+libpaths = [ '/Users/holden/Applications/mac/Systemic/libsystemic.dylib', '/Users/jaburt/Dropbox/Research/Systemic/libsystemic.dylib', '/Users/bradholden/Dropbox/APF_TESS/SystPy/libsystemic.dylib', '/home/rjhanson/Documents/Systemic2-master/libsystemic.so']
 libpath = ''
 for l in libpaths:
     if os.path.exists(l):
@@ -32,6 +32,9 @@ def vector_to_array(v_ptr):
     v = np.empty(length)
 
     lib.ok_vector_block.argtypes = [c_long]
+    lib.ok_vector_block.restype = c_long
+
+    lib.ok_block_to_ptr.argtypes = [c_long, c_long]
     lib.ok_block_to_ptr(lib.ok_vector_block(v_ptr), v.ctypes.data_as(POINTER(c_double)))
     return v
 
@@ -44,6 +47,7 @@ def matrix_to_array_alt(m_ptr):
 
     v = np.empty(length)
     lib.ok_matrix_block.argtypes = [c_long]
+    lib.ok_matrix_block.restype = c_long
     lib.ok_block_to_ptr(lib.ok_matrix_block(m_ptr), v.ctypes.data_as(POINTER(c_double)))
 
     arr = v.reshape(w,h).copy()
