@@ -34,7 +34,7 @@ def vector_to_array(v_ptr):
     lib.ok_vector_block.argtypes = [c_long]
     lib.ok_vector_block.restype = c_long
 
-    lib.ok_block_to_ptr.argtypes = [c_long, c_long]
+    lib.ok_block_to_ptr.argtypes = [c_long, POINTER(c_double)]
     lib.ok_block_to_ptr(lib.ok_vector_block(v_ptr), v.ctypes.data_as(POINTER(c_double)))
     return v
 
@@ -42,12 +42,14 @@ def matrix_to_array_alt(m_ptr):
     """Takes a C pointer to a GSL_MATRIX and returns a copy of that matrix as a Numpy array."""
     lib.ok_matrix_rows.argtypes = [c_long]
     lib.ok_matrix_cols.argtypes = [c_long]
-    w,h = lib.ok_matrix_rows(m_ptr) , lib.ok_matrix_cols(m_ptr)
+    w,h = lib.ok_matrix_rows(m_ptr), lib.ok_matrix_cols(m_ptr)
     length = w * h
 
     v = np.empty(length)
     lib.ok_matrix_block.argtypes = [c_long]
     lib.ok_matrix_block.restype = c_long
+
+    lib.ok_block_to_ptr.argtypes = [c_long, POINTER(c_double)]
     lib.ok_block_to_ptr(lib.ok_matrix_block(m_ptr), v.ctypes.data_as(POINTER(c_double)))
 
     arr = v.reshape(w,h).copy()
